@@ -62,7 +62,7 @@ class _NewExpenseState extends State<NewExpense> {
             children: [
               TextButton(
                 onPressed: () {
-                  Navigator.pop(context);
+                  Navigator.pop(context); 
                 },
                 child: const Text("Censal"),
               ),
