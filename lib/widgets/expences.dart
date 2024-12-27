@@ -1,4 +1,5 @@
 import 'package:expense_tracker_app/widgets/expences-list/daily_expences_list.dart';
+import 'package:expense_tracker_app/widgets/expences-list/new_expense.dart';
 import 'package:flutter/material.dart';
 import 'package:expense_tracker_app/modal/expence.dart';
 
@@ -29,19 +30,26 @@ final List<Expence> _regularExpenses = [
 ];
 
 class _ExpencesState extends State<Expences> {
+  void _openAddExpenseOverlay() {
+    showModalBottomSheet(
+        context: context,
+        builder: (cxt) {
+          return const NewExpense();
+        });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Flutter ExpenceTrecar"), 
+        title: const Text("Flutter ExpenceTrecar"),
         actions: [
           IconButton(
-            onPressed: () {},
+            onPressed: _openAddExpenseOverlay,
             color: Colors.black,
             iconSize: 30,
             icon: const Icon(Icons.add),
           ),
-          //IconButton(onPressed: (){}, icon:const Icon(Icons.accessibility_new),)
         ],
       ),
       body: Column(
