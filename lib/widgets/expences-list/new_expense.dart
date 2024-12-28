@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:expense_tracker_app/modal/expence.dart';
 
 class NewExpense extends StatefulWidget {
   const NewExpense({super.key});
@@ -11,12 +12,31 @@ class NewExpense extends StatefulWidget {
 class _NewExpenseState extends State<NewExpense> {
   final _titalController = TextEditingController();
   final _amountController = TextEditingController();
+  DateTime? _selectedDate;
+  Category _selectdCategory = Category.food;
 
   @override
   void dispose() {
     _titalController.dispose();
     _amountController.dispose();
     super.dispose();
+  }
+
+  void _presentDatePeker() async {
+    final currentDate = DateTime.now();
+    final firstDate =
+        DateTime(currentDate.year - 5, currentDate.month, currentDate.day);
+    final lastDate = currentDate;
+
+    final pickedDate = await showDatePicker(
+      context: context,
+      initialDate: currentDate,
+      firstDate: firstDate,
+      lastDate: lastDate,
+    );
+    setState(() {
+      _selectedDate = pickedDate;
+    });
   }
 
   @override
@@ -31,11 +51,11 @@ class _NewExpenseState extends State<NewExpense> {
             decoration: const InputDecoration(
               // label: Text("Tital"),
               labelText: "Tital",
-              border: OutlineInputBorder(
-                borderRadius: BorderRadius.all(
-                  Radius.circular(5),
-                ),
-              ),
+              // border: OutlineInputBorder(
+              //   borderRadius: BorderRadius.all(
+              //     Radius.circular(5),
+              //   ),
+              // ),
             ),
           ),
           Row(
@@ -43,33 +63,66 @@ class _NewExpenseState extends State<NewExpense> {
               Expanded(
                 child: TextField(
                   controller: _amountController,
-                  keyboardType: TextInputType.number,
-                  maxLength: 20,
+                  keyboardType: TextInputType.number,          
                   decoration: const InputDecoration(
                     prefixText: '\$ ',
                     labelText: 'Amount',
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.all(
-                        Radius.circular(5),
-                      ),
-                    ),
                   ),
                 ),
-              )
+              ),
+              const SizedBox(width: 16,),
+              Expanded(
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    Text(
+                      _selectedDate == null
+                          ? 'Select Date'
+                          : formatter.format(_selectedDate!),
+                    ),
+                    IconButton(
+                      onPressed: _presentDatePeker,
+                      icon: const Icon(Icons.calendar_month),
+                    ),
+                  ],
+                ),
+              ),
             ],
           ),
+          const SizedBox(height: 20,),
           Row(
             children: [
+              DropdownButton(
+                value: _selectdCategory,
+                items: Category.values
+                    .map(
+                      (category) => DropdownMenuItem(
+                        value: category,
+                        child: Text(
+                          category.name.toUpperCase(),
+                        ),
+                      ),
+                    )
+                    .toList(),
+                onChanged: (value) {
+                  setState(() {
+                    if (value == null) {
+                      return;
+                    }
+                    setState(() {                      
+                    _selectdCategory = value;
+                    });
+                  });
+                },
+              ),
+              const Spacer(),
               TextButton(
                 onPressed: () {
-                  Navigator.pop(context); 
+                  Navigator.pop(context);
                 },
                 child: const Text("Censal"),
               ),
-              // OutlinedButton(
-              //   onPressed: () {},
-              //   child: const Text("censal"),
-              // ),
               ElevatedButton(
                   onPressed: () {
                     print(_titalController.text);
