@@ -1,4 +1,6 @@
 {
     "java.compile.nullAnalysis.mode": "automatic",
-    "cmake.sourceDirectory": "/home/deepakmewada/My Programes/flutter/Expense-Tracker-App/linux"
+    "cmake.sourceDirectory": "/home/deepakmewada/MyProgrames/flutter/Expense-Tracker-App/linux",
+    "zenMode.hideActivityBar": false,
+    "zenMode.hideStatusBar": false
 }
