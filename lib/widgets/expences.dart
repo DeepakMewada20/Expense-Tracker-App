@@ -32,10 +32,23 @@ final List<Expence> _regularExpenses = [
 class _ExpencesState extends State<Expences> {
   void _openAddExpenseOverlay() {
     showModalBottomSheet(
+        isScrollControlled: true,
         context: context,
         builder: (cxt) {
-          return const NewExpense();
+          return NewExpense(onAddExpence: _addExpence);
         });
+  }
+
+  void _addExpence(Expence expence) {
+    setState(() {
+      _regularExpenses.add(expence);
+    });
+  }
+
+  void _removeExpence(Expence expence) {
+    setState(() {
+      _regularExpenses.remove(expence);
+    });
   }
 
   @override
@@ -58,7 +71,10 @@ class _ExpencesState extends State<Expences> {
             'Top bar',
           ),
           Expanded(
-            child: DailyExpencesList(expencesList: _regularExpenses),
+            child: DailyExpencesList(
+              expencesList: _regularExpenses,
+              onRemoveExpence: _removeExpence,
+            ),
           ),
         ],
       ),
