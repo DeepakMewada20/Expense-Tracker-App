@@ -39,6 +39,32 @@ class _NewExpenseState extends State<NewExpense> {
     });
   }
 
+  void _submmitExpenseData() {
+    final enteredamount = double.tryParse(_amountController.text);
+    bool amountIsInvalid = enteredamount == null || enteredamount <= 0;
+    if (_titalController.text.trim().isEmpty ||
+        amountIsInvalid ||
+        _selectedDate == null) {
+      showDialog(
+        context: context,
+        builder: (ctx) => AlertDialog(
+          title: const Text("Invelid Input"),
+          content: const Text(
+              "Please make sure a valid tital, amount, Date, and category was entered"),
+          actions: [
+            TextButton(
+              onPressed: () {
+                Navigator.pop(ctx);
+              },
+              child: const Text("Okey"),
+            ),
+          ],
+        ),
+      );
+      return;
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -63,14 +89,16 @@ class _NewExpenseState extends State<NewExpense> {
               Expanded(
                 child: TextField(
                   controller: _amountController,
-                  keyboardType: TextInputType.number,          
+                  keyboardType: TextInputType.number,
                   decoration: const InputDecoration(
                     prefixText: '\$ ',
                     labelText: 'Amount',
                   ),
                 ),
               ),
-              const SizedBox(width: 16,),
+              const SizedBox(
+                width: 16,
+              ),
               Expanded(
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.end,
@@ -90,7 +118,9 @@ class _NewExpenseState extends State<NewExpense> {
               ),
             ],
           ),
-          const SizedBox(height: 20,),
+          const SizedBox(
+            height: 20,
+          ),
           Row(
             children: [
               DropdownButton(
@@ -110,8 +140,8 @@ class _NewExpenseState extends State<NewExpense> {
                     if (value == null) {
                       return;
                     }
-                    setState(() {                      
-                    _selectdCategory = value;
+                    setState(() {
+                      _selectdCategory = value;
                     });
                   });
                 },
@@ -124,10 +154,7 @@ class _NewExpenseState extends State<NewExpense> {
                 child: const Text("Censal"),
               ),
               ElevatedButton(
-                  onPressed: () {
-                    print(_titalController.text);
-                    print(_amountController.text);
-                  },
+                  onPressed: _submmitExpenseData,
                   child: const Text("Save Expense"))
             ],
           )
