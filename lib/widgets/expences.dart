@@ -53,6 +53,17 @@ class _ExpencesState extends State<Expences> {
 
   @override
   Widget build(BuildContext context) {
+    Widget MainContent = const Center(
+      child: Text("No expence data Found!, please add some expences"),
+    );
+    if (_regularExpenses.isNotEmpty) {
+      MainContent = Expanded(
+        child: DailyExpencesList(
+          expencesList: _regularExpenses,
+          onRemoveExpence: _removeExpence,
+        ),
+      );
+    }
     return Scaffold(
       appBar: AppBar(
         title: const Text("Flutter ExpenceTrecar"),
@@ -70,12 +81,7 @@ class _ExpencesState extends State<Expences> {
           const Text(
             'Top bar',
           ),
-          Expanded(
-            child: DailyExpencesList(
-              expencesList: _regularExpenses,
-              onRemoveExpence: _removeExpence,
-            ),
-          ),
+          MainContent,
         ],
       ),
     );
