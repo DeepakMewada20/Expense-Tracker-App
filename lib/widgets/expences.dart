@@ -46,22 +46,38 @@ class _ExpencesState extends State<Expences> {
   }
 
   void _removeExpence(Expence expence) {
-    setState(() {
-      _regularExpenses.remove(expence);
-    });
+    final expenceIndex = _regularExpenses.indexOf(expence);
+    setState(
+      () {
+        _regularExpenses.remove(expence);
+      },
+    );
+    ScaffoldMessenger.of(context).clearSnackBars();
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        content: const Text('Delet Expence!'),
+        duration: const Duration(seconds: 3),
+        action: SnackBarAction(
+          label: 'UNDO',
+          onPressed: () {
+            setState(() {
+              _regularExpenses.insert(expenceIndex, expence);
+            });
+          },
+        ),
+      ),
+    );
   }
 
   @override
   Widget build(BuildContext context) {
-    Widget MainContent = const Center(
+    Widget mainContent = const Center(
       child: Text("No expence data Found!, please add some expences"),
     );
     if (_regularExpenses.isNotEmpty) {
-      MainContent = Expanded(
-        child: DailyExpencesList(
-          expencesList: _regularExpenses,
-          onRemoveExpence: _removeExpence,
-        ),
+      mainContent = DailyExpencesList(
+        expencesList: _regularExpenses,
+        onRemoveExpence: _removeExpence,
       );
     }
     return Scaffold(
@@ -81,7 +97,7 @@ class _ExpencesState extends State<Expences> {
           const Text(
             'Top bar',
           ),
-          MainContent,
+          Expanded(child: mainContent),
         ],
       ),
     );
