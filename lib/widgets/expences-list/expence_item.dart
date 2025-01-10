@@ -14,8 +14,12 @@ class ExpenceItem extends StatelessWidget {
       child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
         child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text(oneExpence.tital),
+            Text(
+              oneExpence.tital,
+              style: Theme.of(context).textTheme.titleLarge,
+            ),
             const SizedBox(
               height: 4,
             ),

@@ -86,11 +86,6 @@ class _NewExpenseState extends State<NewExpense> {
             decoration: const InputDecoration(
               // label: Text("Tital"),
               labelText: "Tital",
-              // border: OutlineInputBorder(
-              //   borderRadius: BorderRadius.all(
-              //     Radius.circular(5),
-              //   ),
-              // ),
             ),
           ),
           Row(
