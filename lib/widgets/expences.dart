@@ -1,3 +1,4 @@
+import 'package:expense_tracker_app/widgets/chart/chart.dart';
 import 'package:expense_tracker_app/widgets/expences-list/daily_expences_list.dart';
 import 'package:expense_tracker_app/widgets/expences-list/new_expense.dart';
 import 'package:flutter/material.dart';
@@ -94,9 +95,7 @@ class _ExpencesState extends State<Expences> {
       ),
       body: Column(
         children: [
-          const Text(
-            'Top bar',
-          ),
+          Chart(expenses: _regularExpenses),
           Expanded(child: mainContent),
         ],
       ),

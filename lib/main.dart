@@ -15,7 +15,6 @@ void main() {
     MaterialApp(
       debugShowCheckedModeBanner: false,
       darkTheme: ThemeData.dark().copyWith(
-        useMaterial3: true,
         colorScheme: kDarkColorScheme,
         cardTheme: const CardTheme().copyWith(
           color: kDarkColorScheme.secondaryContainer,
@@ -30,7 +29,19 @@ void main() {
             foregroundColor: kDarkColorScheme.onPrimaryContainer,
           ),
         ),
+        appBarTheme:const AppBarTheme().copyWith(
+          backgroundColor: kDarkColorScheme.primaryContainer,
+          foregroundColor: kDarkColorScheme.onPrimaryContainer,
+        ),
+        textTheme: ThemeData().textTheme.copyWith(
+          titleLarge: TextStyle(
+            fontWeight: FontWeight.bold,
+            fontSize: 18,
+            color: kDarkColorScheme.onSecondaryContainer
+          ),
+        )
       ),
+
       theme: ThemeData().copyWith(
         colorScheme: kColorScheme,
         appBarTheme: const AppBarTheme().copyWith(
@@ -54,7 +65,7 @@ void main() {
                 fontSize: 18,
                 color: kColorScheme.onSecondaryContainer)),
       ),
-      themeMode: ThemeMode.system,
+      themeMode: ThemeMode.dark,
       home: const Expences(),
     ),
   );
