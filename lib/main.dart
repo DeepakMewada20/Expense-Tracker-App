@@ -68,7 +68,7 @@ void main() {
                   color: kColorScheme.onSecondaryContainer),
             ),
       ),
-      themeMode: ThemeMode.dark,
+      themeMode: ThemeMode.light,
       home: const Expences(),
     ),
   );

@@ -15,7 +15,6 @@ class NewExpense extends StatefulWidget {
 class _NewExpenseState extends State<NewExpense> {
   final _titalController = TextEditingController();
   final _amountController = TextEditingController();
-  //String _amount = "";
   DateTime? _selectedDate;
   Category _selectdCategory = Category.food;
 
@@ -77,6 +76,17 @@ class _NewExpenseState extends State<NewExpense> {
     Navigator.pop(context);
   }
 
+  void _selectDropdownItam(Category value) {
+    setState(() {
+      if (value == null) {
+        return;
+      }
+      setState(() {
+        _selectdCategory = value;
+      });
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     final keybordSpace = MediaQuery.of(context).viewInsets.bottom;
@@ -87,53 +97,18 @@ class _NewExpenseState extends State<NewExpense> {
           padding: EdgeInsets.fromLTRB(16, 16, 16, keybordSpace + 16),
           child: Column(
             children: [
-              // TextField(
-              //   controller: _titalController,
-              //   maxLength: 50,
-              //   decoration: const InputDecoration(
-              //     // label: Text("Tital"),
-              //     labelText: "Tital",
-              //   ),
-              //   style: const TextStyle(
-              //     color: Colors.white, // Text color
-              //   ),
-              // ),
               Titalfiled(controller: _titalController),
               Row(
                 children: [
-                  // Expanded(
-                  //   child: TextField(
-                  //     controller: _amountController,
-                  //     keyboardType: TextInputType.number,
-                  //     decoration: const InputDecoration(
-                  //       prefixText: '\$ ',
-                  //       labelText: 'Amount',
-                  //     ),
-                  //   ),
-                  // ),
                   Amountfiled.amountFiled(
-                      controller: _amountController,
+                    controller: _amountController,
                   ),
                   const SizedBox(
                     width: 16,
                   ),
-                  Expanded(
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.end,
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        Text(
-                          _selectedDate == null
-                              ? 'Select Date'
-                              : formatter.format(_selectedDate!),
-                        ),
-                        IconButton(
-                          onPressed: _presentDatePeker,
-                          icon: const Icon(Icons.calendar_month),
-                        ),
-                      ],
-                    ),
-                  ),
+                  Amountfiled.datePecker(
+                      selectedDate: _selectedDate,
+                      presentDatePeker: _presentDatePeker),
                 ],
               ),
               const SizedBox(
@@ -141,29 +116,32 @@ class _NewExpenseState extends State<NewExpense> {
               ),
               Row(
                 children: [
-                  DropdownButton(
-                    value: _selectdCategory,
-                    items: Category.values
-                        .map(
-                          (category) => DropdownMenuItem(
-                            value: category,
-                            child: Text(
-                              category.name.toUpperCase(),
-                            ),
-                          ),
-                        )
-                        .toList(),
-                    onChanged: (value) {
-                      setState(() {
-                        if (value == null) {
-                          return;
-                        }
-                        setState(() {
-                          _selectdCategory = value;
-                        });
-                      });
-                    },
-                  ),
+                  // DropdownButton(
+                  //   value: _selectdCategory,
+                  //   items: Category.values
+                  //       .map(
+                  //         (category) => DropdownMenuItem(
+                  //           value: category,
+                  //           child: Text(
+                  //             category.name.toUpperCase(),
+                  //           ),
+                  //         ),
+                  //       )
+                  //       .toList(),
+                  //   onChanged: (value) {
+                  //     setState(() {
+                  //       if (value == null) {
+                  //         return;
+                  //       }
+                  //       setState(() {
+                  //         _selectdCategory = value;
+                  //       });
+                  //     });
+                  //   },
+                  // ),
+                  Amountfiled.dropDownButten(
+                      selectdCategory: _selectdCategory,
+                      selectDropdownItam: _selectDropdownItam),
                   const Spacer(),
                   TextButton(
                     onPressed: () {

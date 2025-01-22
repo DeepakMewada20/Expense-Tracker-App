@@ -14,9 +14,6 @@ class Titalfiled extends StatelessWidget {
         // label: Text("Tital"),
         labelText: "Tital",
       ),
-      style: const TextStyle(
-        color: Colors.white, // Text color
-      ),
     );
   }
 }
