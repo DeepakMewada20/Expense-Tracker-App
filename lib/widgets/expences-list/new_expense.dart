@@ -1,3 +1,5 @@
+import 'package:expense_tracker_app/widgets/expences-list/amountFiled.dart';
+import 'package:expense_tracker_app/widgets/expences-list/titalFiled.dart';
 import 'package:flutter/material.dart';
 import 'package:expense_tracker_app/modal/expence.dart';
 
@@ -13,6 +15,7 @@ class NewExpense extends StatefulWidget {
 class _NewExpenseState extends State<NewExpense> {
   final _titalController = TextEditingController();
   final _amountController = TextEditingController();
+  //String _amount = "";
   DateTime? _selectedDate;
   Category _selectdCategory = Category.food;
 
@@ -76,93 +79,106 @@ class _NewExpenseState extends State<NewExpense> {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.all(16),
-      child: Column(
-        children: [
-          TextField(
-            controller: _titalController,
-            maxLength: 50,
-            decoration: const InputDecoration(
-              // label: Text("Tital"),
-              labelText: "Tital",
-            ),
-          ),
-          Row(
+    final keybordSpace = MediaQuery.of(context).viewInsets.bottom;
+    return SizedBox(
+      height: double.infinity,
+      child: SingleChildScrollView(
+        child: Padding(
+          padding: EdgeInsets.fromLTRB(16, 16, 16, keybordSpace + 16),
+          child: Column(
             children: [
-              Expanded(
-                child: TextField(
-                  controller: _amountController,
-                  keyboardType: TextInputType.number,
-                  decoration: const InputDecoration(
-                    prefixText: '\$ ',
-                    labelText: 'Amount',
+              // TextField(
+              //   controller: _titalController,
+              //   maxLength: 50,
+              //   decoration: const InputDecoration(
+              //     // label: Text("Tital"),
+              //     labelText: "Tital",
+              //   ),
+              //   style: const TextStyle(
+              //     color: Colors.white, // Text color
+              //   ),
+              // ),
+              Titalfiled(controller: _titalController),
+              Row(
+                children: [
+                  // Expanded(
+                  //   child: TextField(
+                  //     controller: _amountController,
+                  //     keyboardType: TextInputType.number,
+                  //     decoration: const InputDecoration(
+                  //       prefixText: '\$ ',
+                  //       labelText: 'Amount',
+                  //     ),
+                  //   ),
+                  // ),
+                  Amountfiled.amountFiled(
+                      controller: _amountController,
                   ),
-                ),
+                  const SizedBox(
+                    width: 16,
+                  ),
+                  Expanded(
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        Text(
+                          _selectedDate == null
+                              ? 'Select Date'
+                              : formatter.format(_selectedDate!),
+                        ),
+                        IconButton(
+                          onPressed: _presentDatePeker,
+                          icon: const Icon(Icons.calendar_month),
+                        ),
+                      ],
+                    ),
+                  ),
+                ],
               ),
               const SizedBox(
-                width: 16,
+                height: 20,
               ),
-              Expanded(
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.end,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    Text(
-                      _selectedDate == null
-                          ? 'Select Date'
-                          : formatter.format(_selectedDate!),
-                    ),
-                    IconButton(
-                      onPressed: _presentDatePeker,
-                      icon: const Icon(Icons.calendar_month),
-                    ),
-                  ],
-                ),
-              ),
+              Row(
+                children: [
+                  DropdownButton(
+                    value: _selectdCategory,
+                    items: Category.values
+                        .map(
+                          (category) => DropdownMenuItem(
+                            value: category,
+                            child: Text(
+                              category.name.toUpperCase(),
+                            ),
+                          ),
+                        )
+                        .toList(),
+                    onChanged: (value) {
+                      setState(() {
+                        if (value == null) {
+                          return;
+                        }
+                        setState(() {
+                          _selectdCategory = value;
+                        });
+                      });
+                    },
+                  ),
+                  const Spacer(),
+                  TextButton(
+                    onPressed: () {
+                      Navigator.pop(context);
+                    },
+                    child: const Text("Censal"),
+                  ),
+                  ElevatedButton(
+                      onPressed: _submmitExpenseData,
+                      child: const Text("Save Expense"))
+                ],
+              )
             ],
           ),
-          const SizedBox(
-            height: 20,
-          ),
-          Row(
-            children: [
-              DropdownButton(
-                value: _selectdCategory,
-                items: Category.values
-                    .map(
-                      (category) => DropdownMenuItem(
-                        value: category,
-                        child: Text(
-                          category.name.toUpperCase(),
-                        ),
-                      ),
-                    )
-                    .toList(),
-                onChanged: (value) {
-                  setState(() {
-                    if (value == null) {
-                      return;
-                    }
-                    setState(() {
-                      _selectdCategory = value;
-                    });
-                  });
-                },
-              ),
-              const Spacer(),
-              TextButton(
-                onPressed: () {
-                  Navigator.pop(context);
-                },
-                child: const Text("Censal"),
-              ),
-              ElevatedButton(
-                  onPressed: _submmitExpenseData,
-                  child: const Text("Save Expense"))
-            ],
-          )
-        ],
+        ),
       ),
     );
   }

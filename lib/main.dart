@@ -11,37 +11,39 @@ var kDarkColorScheme = ColorScheme.fromSeed(
 );
 
 void main() {
+  // WidgetsFlutterBinding.ensureInitialized();
+  // SystemChrome.setPreferredOrientations([
+  //   DeviceOrientation.portraitUp,
+  // ]).then(
+  //   (value) =>
   runApp(
     MaterialApp(
       debugShowCheckedModeBanner: false,
       darkTheme: ThemeData.dark().copyWith(
-        colorScheme: kDarkColorScheme,
-        cardTheme: const CardTheme().copyWith(
-          color: kDarkColorScheme.secondaryContainer,
-          margin: const EdgeInsets.symmetric(
-            horizontal: 16,
-            vertical: 5,
+          colorScheme: kDarkColorScheme,
+          cardTheme: const CardTheme().copyWith(
+            color: kDarkColorScheme.secondaryContainer,
+            margin: const EdgeInsets.symmetric(
+              horizontal: 16,
+              vertical: 5,
+            ),
           ),
-        ),
-        elevatedButtonTheme: ElevatedButtonThemeData(
-          style: ElevatedButton.styleFrom(
+          elevatedButtonTheme: ElevatedButtonThemeData(
+            style: ElevatedButton.styleFrom(
+              backgroundColor: kDarkColorScheme.primaryContainer,
+              foregroundColor: kDarkColorScheme.onPrimaryContainer,
+            ),
+          ),
+          appBarTheme: const AppBarTheme().copyWith(
             backgroundColor: kDarkColorScheme.primaryContainer,
             foregroundColor: kDarkColorScheme.onPrimaryContainer,
           ),
-        ),
-        appBarTheme:const AppBarTheme().copyWith(
-          backgroundColor: kDarkColorScheme.primaryContainer,
-          foregroundColor: kDarkColorScheme.onPrimaryContainer,
-        ),
-        textTheme: ThemeData().textTheme.copyWith(
-          titleLarge: TextStyle(
-            fontWeight: FontWeight.bold,
-            fontSize: 18,
-            color: kDarkColorScheme.onSecondaryContainer
-          ),
-        )
-      ),
-
+          textTheme: ThemeData().textTheme.copyWith(
+                titleLarge: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    fontSize: 18,
+                    color: kDarkColorScheme.onSecondaryContainer),
+              )),
       theme: ThemeData().copyWith(
         colorScheme: kColorScheme,
         appBarTheme: const AppBarTheme().copyWith(
@@ -60,13 +62,15 @@ void main() {
           ),
         ),
         textTheme: ThemeData().textTheme.copyWith(
-            titleLarge: TextStyle(
-                fontWeight: FontWeight.bold,
-                fontSize: 18,
-                color: kColorScheme.onSecondaryContainer)),
+              titleLarge: TextStyle(
+                  fontWeight: FontWeight.bold,
+                  fontSize: 18,
+                  color: kColorScheme.onSecondaryContainer),
+            ),
       ),
       themeMode: ThemeMode.dark,
       home: const Expences(),
     ),
   );
+  // );
 }
