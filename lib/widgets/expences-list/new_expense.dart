@@ -1,4 +1,4 @@
-import 'package:expense_tracker_app/widgets/expences-list/amountFiled.dart';
+import 'package:expense_tracker_app/widgets/expences-list/input_filed_for_new_expense.dart';
 import 'package:expense_tracker_app/widgets/expences-list/titalFiled.dart';
 import 'package:flutter/material.dart';
 import 'package:expense_tracker_app/modal/expence.dart';
@@ -76,7 +76,7 @@ class _NewExpenseState extends State<NewExpense> {
     Navigator.pop(context);
   }
 
-  void _selectDropdownItam(Category value) {
+  void _selectDropdownItam(Category? value) {
     setState(() {
       if (value == null) {
         return;
@@ -100,13 +100,13 @@ class _NewExpenseState extends State<NewExpense> {
               Titalfiled(controller: _titalController),
               Row(
                 children: [
-                  Amountfiled.amountFiled(
+                  Inputfiled.amountFiled(
                     controller: _amountController,
                   ),
                   const SizedBox(
                     width: 16,
                   ),
-                  Amountfiled.datePecker(
+                  Inputfiled.datePecker(
                       selectedDate: _selectedDate,
                       presentDatePeker: _presentDatePeker),
                 ],
@@ -139,7 +139,7 @@ class _NewExpenseState extends State<NewExpense> {
                   //     });
                   //   },
                   // ),
-                  Amountfiled.dropDownButten(
+                  Inputfiled.dropDownButten(
                       selectdCategory: _selectdCategory,
                       selectDropdownItam: _selectDropdownItam),
                   const Spacer(),

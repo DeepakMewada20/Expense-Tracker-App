@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:expense_tracker_app/modal/expence.dart';
 
-class Amountfiled {
+class Inputfiled {
   static Widget amountFiled({required TextEditingController controller}) {
     return Expanded(
       child: TextField(
