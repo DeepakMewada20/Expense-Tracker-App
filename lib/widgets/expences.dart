@@ -1,8 +1,10 @@
+import 'package:expense_tracker_app/controller/hive_data_save.dart';
 import 'package:expense_tracker_app/widgets/chart/chart.dart';
 import 'package:expense_tracker_app/widgets/expences-list/daily_expences_list.dart';
 import 'package:expense_tracker_app/widgets/expences-list/new_expense.dart';
 import 'package:flutter/material.dart';
 import 'package:expense_tracker_app/modal/expence.dart';
+import 'package:get/get.dart';
 
 class Expences extends StatefulWidget {
   const Expences({super.key});
@@ -31,6 +33,7 @@ final List<Expence> _regularExpenses = [
 ];
 
 class _ExpencesState extends State<Expences> {
+  final HiveDataSave _hiveDataSave = Get.find<HiveDataSave>();
   void _openAddExpenseOverlay() {
     showModalBottomSheet(
       useSafeArea: true,
